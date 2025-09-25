@@ -1,0 +1,4 @@
+storePassword=dell2000
+keyPassword=dell2000
+keyAlias=myalias
+storeFile=android/app/hungermela.keystore

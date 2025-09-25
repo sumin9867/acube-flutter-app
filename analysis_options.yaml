@@ -1,0 +1,23 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_double_quotes: false
+    prefer_single_quotes: true
+    always_use_package_imports: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_locals: true
+    avoid_unnecessary_containers: true
+    unnecessary_this: true
+    sort_child_properties_last: true
+    avoid_print: true
+    avoid_empty_else: true
+
+
+analyzer:
+  exclude:
+    - version_1/**
+    - lib_v1/**
+  errors:
+    invalid_annotation_target: ignore

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_channel_name">Message Channel</string>
+    <string name="message_channel_description">This is used to receive chat message notifications</string>
+    <string name="message_channel_id">high_importance_channel</string>
+</resources>

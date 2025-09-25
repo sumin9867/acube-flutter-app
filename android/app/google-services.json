@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "303684458367",
+    "project_id": "trackon-32270",
+    "storage_bucket": "trackon-32270.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303684458367:android:1e2198ab2370acd3b8ac4a",
+        "android_client_info": {
+          "package_name": "com.itsoch.trackon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303684458367-37rhungbi2e0noov750e17bknrvr44m3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itsoch.trackon",
+            "certificate_hash": "627b8ec2933eaec30007287d5d574fe813aede61"
+          }
+        },
+        {
+          "client_id": "303684458367-ddkjlcr2csie6f595qheefrhma2g9lp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEWGbt5xU-eY8DZnlR7BNb5Gjrt2PsmWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303684458367-ddkjlcr2csie6f595qheefrhma2g9lp1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303684458367-k7scauq0lf1r5u2d2skvu8gkudpo9e5g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.itsoch.trackon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

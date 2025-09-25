@@ -1,0 +1,252 @@
+
+name: gpspro
+description: trackon gps
+publish_to: "none"
+version: 55.0.0+211
+
+environment:
+  sdk: ">=3.0.6 <4.0.0"
+  flutter: ">=3.10.6"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  audioplayers: ^6.1.0
+  connectivity_plus: ^7.0.0
+  cupertino_icons: ^1.0.5
+  dio: ^5.3.2
+  
+  email_validator: ^3.0.0
+  firebase_analytics: ^12.0.1
+  firebase_core: ^4.1.0
+  firebase_messaging: ^16.0.1
+  flutter_bloc: ^9.1.0
+  flutter_easyloading: ^3.0.5
+  flutter_gen: ^5.3.1
+  flutter_local_notifications: ^19.4.2
+  flutter_phoenix: ^1.1.1
+  flutter_polyline_points: ^3.0.1
+  flutter_secure_storage: ^10.0.0-beta.4
+  flutter_staggered_grid_view: 0.7.0
+  flutter_svg: ^2.0.7
+  fluttertoast: ^8.2.2
+  font_awesome_flutter: ^10.5.0
+  freezed_annotation: ^2.4.1
+  geolocator: ^14.0.2
+  get_it: ^8.0.3
+  go_router: ^15.1.3
+  google_fonts: ^6.2.1
+  google_maps_flutter: ^2.10.1
+
+  injectable: ^2.3.0
+  intl: ^0.19.0
+  introduction_screen: ^4.0.0
+  jiffy: ^6.2.1
+  json_annotation: ^4.9.0
+  line_icons: ^2.0.3
+  location: ^8.0.0
+  logger: ^2.0.2
+  lottie: ^3.1.2
+  marquee: ^2.2.3
+  newrelic_mobile: ^1.0.9
+  package_info_plus: ^8.0.0
+  pausable_timer: ^3.1.0+3
+  percent_indicator: ^4.2.3
+  permission_handler: ^12.0.1
+  http: ^1.2.2
+  responsive_framework: ^1.1.1
+  rflutter_alert: ^2.0.7
+  shared_preferences: ^2.2.1
+  slidable_button: ^3.0.0+1
+  smooth_page_indicator: ^1.2.1
+  sqflite: ^2.3.3+1
+  syncfusion_flutter_charts: ^31.1.19
+  syncfusion_flutter_gauges: ^31.1.19
+  timeline_tile: 2.0.0
+  url_launcher: ^6.1.14
+  validators: ^3.0.0
+  visibility_detector: ^0.4.0+2
+  web_socket_channel: ^3.0.0
+  webview_flutter: ^4.8.0
+  webview_flutter_plus: ^0.4.5
+  flutter_animarker:
+    path: packages/flutter_animarker
+  system_alert_window: ^2.0.7
+  external_app_launcher: ^4.0.1
+
+
+
+  device_preview: ^1.2.0
+  cookie_jar: ^4.0.8
+  dio_cookie_manager: ^3.1.1
+  share_plus: ^12.0.0
+
+  shimmer: ^3.0.0
+  field_suggestion: ^0.2.6
+  pin_code_fields: ^8.0.1
+  dio_cache_interceptor: ^4.0.3
+  restart_app: ^1.3.2
+  dartz: ^0.10.1
+  google_maps_cluster_manager: ^3.1.0
+  label_marker: ^1.0.1
+  top_modal_sheet: ^2.1.0
+  syncfusion_flutter_datepicker: ^31.1.19
+  syncfusion_flutter_sliders: ^31.1.19
+  custom_info_window: ^1.0.1
+  qr_code_scanner_plus: ^2.0.10+1
+  image_picker: ^1.1.2
+  image_cropper: ^9.0.0
+  cached_network_image: ^3.4.1
+  infinite_scroll_pagination: ^5.0.0
+
+  iconsax: ^0.0.8
+  iconsax_plus: ^1.0.0
+  iconsax_flutter: ^1.0.0
+  google_maps_flutter_android: ^2.16.0
+  google_maps_flutter_platform_interface: ^2.11.1
+  double_back_to_exit: ^1.2.1
+  custom_image_crop: ^0.1.1
+  app_settings: ^6.1.1
+  delightful_toast: ^1.1.0
+  pinput: ^5.0.1
+
+
+  timelines:
+    git:
+      url: https://github.com/sumin9867/timelines
+  sliding_up_panel: ^2.0.0+1
+
+  crypto: ^3.0.6
+  persistent_bottom_nav_bar_v2: ^6.0.1
+  flutter_form_builder: ^10.2.0
+  form_builder_validators: ^11.1.2
+  flutter_native_splash: ^2.4.4
+  equatable: ^2.0.7
+  pretty_dio_logger: ^1.4.0
+
+dev_dependencies:
+  build_runner: ^2.4.6
+  flutter_gen_runner: ^5.3.1
+  flutter_intl: any
+  intl_utils: any
+  flutter_lints: ^6.0.0
+  flutter_oss_licenses: ^3.0.2
+  flutter_test:
+    sdk: flutter
+  freezed: ^3.2.3
+  injectable_generator: ^2.4.0
+  json_serializable: ^6.8.0
+
+dependency_overrides:
+  web_socket_channel: ^3.0.0
+  intl: ^0.19.0
+  dio: ^5.3.2
+  freezed_annotation: ^2.4.1
+  uuid: ^4.4.2
+  flutter_chat_types: ^3.0.0
+  diffutil_dart: ^3.0.0
+  flutter_secure_storage: ^8.0.0
+  riverpod: ^2.0.0 # Update Riverpod to a newer version that supports null safety
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/images/onboarding/
+    - assets/images/devices/
+    - assets/images/devices/ambulance/
+    - assets/images/devices/bike/
+    - assets/images/devices/bus/
+    - assets/images/devices/car/
+    - assets/images/devices/fire/
+    - assets/images/devices/jcb/
+    - assets/images/devices/pickup_van/
+    - assets/images/devices/school_bus/
+    - assets/images/devices/truck/
+    - assets/images/devices/scooter/
+    - assets/images/devices/bicycle/
+    - assets/images/devices/safari/
+    - assets/images/devices/trpp/
+    - assets/images/devices/tempo/
+    - assets/images/devices/van/
+    - assets/icons/
+    - assets/icons/marker/
+    - assets/icons/bottom_bar/
+    - assets/icons/vehicle_dashboard/
+    - assets/icons/bottom_nav/
+    - assets/icons/vehicle_details_icon/
+    - assets/icons/vehicle_geofence/
+    - assets/icons/playback/
+    - assets/icons/vehicle_info/
+    - assets/icons/vehicle_setting/
+   
+    - assets/icons/statistics/
+    - assets/icons/trackon_new_logo_12.png
+    - assets/icons/trackonsplash.png
+    - assets/icons/trackon_new_logo_12.png
+    - assets/icons/trackon_new_logo.png
+    - assets/icons/trackonsplash_12.png
+    - assets/images/devices/rmc/
+
+
+
+    - assets/icons/control_center/
+    - assets/icons/subscription/
+    - assets/icons/payment/
+    - assets/icons/made_in.png 
+    - assets/icons/events/
+    - assets/icons/info/
+    - assets/lang/
+    - assets/mp3/
+    - shorebird.yaml
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Bold.ttf
+        - asset: fonts/OpenSans-BoldItalic.ttf
+        - asset: fonts/OpenSans-ExtraBold.ttf
+        - asset: fonts/OpenSans-ExtraBoldItalic.ttf
+        - asset: fonts/OpenSans-Italic.ttf
+        - asset: fonts/OpenSans-Light.ttf
+        - asset: fonts/OpenSans-LightItalic.ttf
+        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans-SemiBold.ttf
+        - asset: fonts/OpenSans-SemiBoldItalic.ttf
+
+flutter_gen:
+  output: lib/gen
+  integrations:
+    flutter_svg: true
+    # flare_flutter: true
+    lottie: true
+
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: en
+  arb_dir: lib/l10n
+  template_arb_file: intl_en.arb
+  output_dir: lib/gen/l10n
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
+  image: assets/icons/trackonsplash.png
+  ios_content_mode: scaleAspectFit
+
+  android: true
+  ios: true
+  fullscreen: true
+  web: false
+
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#FFFFFF"
+    image: assets/icons/trackon_new_logo_12.png
