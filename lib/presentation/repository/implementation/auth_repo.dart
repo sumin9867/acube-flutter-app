@@ -26,29 +26,41 @@ class AuthRepoImp implements AuthRepo {
   static const resetTokenBaseUrl = '${ApiConstant.baseUrl}/auth';
   static const webTrackonBaseUrl = 'https://web.trackongps.com';
 
-  bool _isSuccess(int? statusCode) => statusCode != null && statusCode >= 200 && statusCode < 300;
+  bool _isSuccess(int? statusCode) =>
+      statusCode != null && statusCode >= 200 && statusCode < 300;
 
   /// Common handler for API responses
-  T _handleResponse<T>(Response response, {T Function(dynamic data)? onSuccess}) {
+  T _handleResponse<T>(Response response,
+      {T Function(dynamic data)? onSuccess}) {
     if (_isSuccess(response.statusCode)) {
       return onSuccess != null ? onSuccess(response.data) : response.data as T;
     }
-    final message = response.data?['message']?.toString() ?? 'Unexpected error: ${response.statusCode}';
+    final message = response.data?['message']?.toString() ??
+        'Unexpected error: ${response.statusCode}';
     throw AppException(message: message);
   }
 
   @override
   Future<LoginResponse> register(
-      {required String fullName, required String email, required String phone, required String password}) async {
+      {required String fullName,
+      required String email,
+      required String phone,
+      required String password}) async {
     try {
       final response = await remoteSource.post(
         'api/users',
-        data: {'name': fullName, 'email': email, 'phone': phone, 'password': password},
+        data: {
+          'name': fullName,
+          'email': email,
+          'phone': phone,
+          'password': password
+        },
       );
 
       return _handleResponse<LoginResponse>(response, onSuccess: (data) {
         final user = User.fromJson(data);
-        final basicAuth = 'Basic ${base64.encode(utf8.encode('$email:$password'))}';
+        final basicAuth =
+            'Basic ${base64.encode(utf8.encode('$email:$password'))}';
         return LoginResponse(
           userSession: UserSession(
             userId: user.id,
@@ -73,19 +85,22 @@ class AuthRepoImp implements AuthRepo {
   }) async {
     try {
       final response = await remoteSource.post(
-        '$resetTokenBaseUrl/login',
+        'https://api.trackongps.com/api2/auth/login',
         data: {'identifier': username, 'password': password},
         options: Options(
-          validateStatus: (status) => status != null && status >= 200 && status < 500,
+          validateStatus: (status) =>
+              status != null && status >= 200 && status < 500,
         ),
       );
 
-      final data = response.data is String ? json.decode(response.data) : response.data;
+      final data =
+          response.data is String ? json.decode(response.data) : response.data;
       log('Login Response Data: $data');
 
       if (_isSuccess(response.statusCode) && data != null) {
         final user = User.fromJson(data);
-        final basicAuth = 'Basic ${base64.encode(utf8.encode('$username:$password'))}';
+        final basicAuth =
+            'Basic ${base64.encode(utf8.encode('$username:$password'))}';
 
         return LoginResponse(
           userSession: UserSession(
@@ -98,7 +113,8 @@ class AuthRepoImp implements AuthRepo {
           user: user,
         );
       } else {
-        final message = data['message']?.toString() ?? 'Login failed: ${response.statusCode}';
+        final message = data['message']?.toString() ??
+            'Login failed: ${response.statusCode}';
         throw AppException(message: message);
       }
     } on DioException catch (e, s) {
@@ -148,7 +164,8 @@ class AuthRepoImp implements AuthRepo {
         '$webTrackonBaseUrl/api/session',
       );
 
-      final currentData = _handleResponse<Map<String, dynamic>>(profileResponse, onSuccess: (data) {
+      final currentData = _handleResponse<Map<String, dynamic>>(profileResponse,
+          onSuccess: (data) {
         if (data is! Map<String, dynamic>) {
           throw const AppException(message: 'Unexpected response format');
         }
@@ -157,17 +174,21 @@ class AuthRepoImp implements AuthRepo {
 
       final formData = FormData.fromMap({
         'fileId': generateHexId(36),
-        'file': await MultipartFile.fromFile(image.path, filename: image.path.split('/').last),
+        'file': await MultipartFile.fromFile(image.path,
+            filename: image.path.split('/').last),
       });
 
       final uploadResponse = await remoteSource.post(
         '${Appwrite.appwriteUrl}${Appwrite.appwriteBucketId}/files',
         data: formData,
-        options: Options(headers: {'x-appwrite-project': Appwrite.appwriteProjectId}),
+        options: Options(
+            headers: {'x-appwrite-project': Appwrite.appwriteProjectId}),
       );
 
       if (uploadResponse.statusCode != 201) {
-        throw AppException(message: uploadResponse.data?['message'] ?? 'Failed to upload to server');
+        throw AppException(
+            message: uploadResponse.data?['message'] ??
+                'Failed to upload to server');
       }
 
       final updatedData = {
@@ -191,14 +212,18 @@ class AuthRepoImp implements AuthRepo {
   }
 
   @override
-  Future<void> logout() async => _execute(() => remoteSource.delete('api/session',
-      options: Options(headers: {'Content-Type': 'application/x-www-form-urlencoded'})));
+  Future<void> logout() async =>
+      _execute(() => remoteSource.delete('api/session',
+          options: Options(
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'})));
 
   @override
   Future<User> updateUser(User user) async => _execute(() async {
         final data = user.toJson()..removeWhere((k, v) => v == null);
-        final response = await remoteSource.put('api/users/${user.id}', data: data);
-        return _handleResponse<User>(response, onSuccess: (data) => User.fromJson(data));
+        final response =
+            await remoteSource.put('api/users/${user.id}', data: data);
+        return _handleResponse<User>(response,
+            onSuccess: (data) => User.fromJson(data));
       });
 
   @override
@@ -215,11 +240,16 @@ class AuthRepoImp implements AuthRepo {
   }
 
   @override
-  Future<void> completeSignup({required String token, required String fullname, required String password}) async {
+  Future<void> completeSignup(
+      {required String token,
+      required String fullname,
+      required String password}) async {
     final response = await remoteSource.post(
       '$resetTokenBaseUrl/registration/complete',
       data: {'token': token, 'fullName': fullname, 'password': password},
-      options: Options(validateStatus: (s) => s != null && s < 500, headers: {'Content-Type': 'application/json'}),
+      options: Options(
+          validateStatus: (s) => s != null && s < 500,
+          headers: {'Content-Type': 'application/json'}),
     );
 
     _handleResponse(response);
@@ -227,62 +257,80 @@ class AuthRepoImp implements AuthRepo {
 
   @override
   Future<String> initiateSignup({required String emailOrPhone}) async {
-    final isEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(emailOrPhone);
+    final isEmail =
+        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(emailOrPhone);
 
     final response = await remoteSource.post(
       '$resetTokenBaseUrl/registration/init',
       data: isEmail ? {'email': emailOrPhone} : {'phone': emailOrPhone},
-      options: Options(validateStatus: (s) => s != null && s < 500, headers: {'Content-Type': 'application/json'}),
+      options: Options(
+          validateStatus: (s) => s != null && s < 500,
+          headers: {'Content-Type': 'application/json'}),
     );
 
-    return _handleResponse<String>(response, onSuccess: (data) => data['message'] ?? 'OTP sent successfully');
+    return _handleResponse<String>(response,
+        onSuccess: (data) => data['message'] ?? 'OTP sent successfully');
   }
 
   @override
   Future<void> requestToken({required String emailOrPhone}) async {
-    final isEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(emailOrPhone);
+    final isEmail =
+        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(emailOrPhone);
 
     final response = await remoteSource.post(
       '$resetTokenBaseUrl/account/reset',
       data: isEmail ? {'email': emailOrPhone} : {'phone': emailOrPhone},
-      options: Options(validateStatus: (s) => s != null && s < 500, headers: {'Content-Type': 'application/json'}),
+      options: Options(
+          validateStatus: (s) => s != null && s < 500,
+          headers: {'Content-Type': 'application/json'}),
     );
 
     _handleResponse(response);
   }
 
   @override
-  Future<void> resetPassword({required String token, required String newPassword}) async {
+  Future<void> resetPassword(
+      {required String token, required String newPassword}) async {
     final response = await remoteSource.post(
       '$resetTokenBaseUrl/password/reset',
       data: {'token': token, 'newPassword': newPassword},
-      options: Options(validateStatus: (s) => s != null && s < 500, headers: {'Content-Type': 'application/json'}),
+      options: Options(
+          validateStatus: (s) => s != null && s < 500,
+          headers: {'Content-Type': 'application/json'}),
     );
 
     _handleResponse(response);
   }
 
   @override
-  Future<String> verifyToken({required String otp, required String emailOrPhone, required String identifier}) async {
+  Future<String> verifyToken(
+      {required String otp,
+      required String emailOrPhone,
+      required String identifier}) async {
     final response = await remoteSource.post(
       '$resetTokenBaseUrl/otp/verify',
       data: {'otp': otp, 'identifier': emailOrPhone, 'type': identifier},
-      options: Options(validateStatus: (s) => s != null && s < 500, headers: {'Content-Type': 'application/json'}),
+      options: Options(
+          validateStatus: (s) => s != null && s < 500,
+          headers: {'Content-Type': 'application/json'}),
     );
 
     if (response.statusCode == 201) {
-      final decodedData = response.data is String ? json.decode(response.data) : response.data;
+      final decodedData =
+          response.data is String ? json.decode(response.data) : response.data;
       final token = decodedData['token'] as String?;
       if (token?.isNotEmpty ?? false) return token!;
       throw const AppException(message: 'Token is missing or empty');
     }
 
-    final message = response.data?['message']?.toString() ?? 'Failed to verify token';
+    final message =
+        response.data?['message']?.toString() ?? 'Failed to verify token';
     throw AppException(message: message);
   }
 
   @override
-  Future<Either<String, String>> confirmPassword({required String confirmPassword}) async {
+  Future<Either<String, String>> confirmPassword(
+      {required String confirmPassword}) async {
     try {
       final response = await remoteSource.post(
         'https://api.trackongps.com/api2/security/verify-password',
@@ -293,7 +341,8 @@ class AuthRepoImp implements AuthRepo {
       );
       log('Confirm Password Response: ${response.data}');
       if (response.statusCode != 200) {
-        final errorMessage = response.data?['message'] ?? 'Failed to verify password';
+        final errorMessage =
+            response.data?['message'] ?? 'Failed to verify password';
         return left(errorMessage);
       }
 

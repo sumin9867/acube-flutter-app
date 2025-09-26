@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:gpspro/auth/cubit/auth_cubit.dart';
 import 'package:gpspro/core/app_logger.dart';
+import 'package:gpspro/core/constants/api_constant.dart';
 import 'package:gpspro/core/di/get_injectable.dart';
 import 'package:gpspro/core/exceptions/app_exceptions.dart';
 import 'package:gpspro/data/sources/remote_source.dart';
@@ -16,7 +17,7 @@ import 'package:injectable/injectable.dart';
 class NotificationRepoImp implements NotificationRepo {
   final RemoteSource remoteSource;
 
-  const NotificationRepoImp({
+  NotificationRepoImp({
     required this.remoteSource,
   });
   @override
@@ -58,7 +59,8 @@ class NotificationRepoImp implements NotificationRepo {
   }
 
   @override
-  Future<NotificationModel> addNotifications({required NotificationModel notification}) async {
+  Future<NotificationModel> addNotifications(
+      {required NotificationModel notification}) async {
     /*  headers['Content-Type'] = 'application/json';
         headers['charset'] = 'utf-8';
      */
@@ -131,7 +133,8 @@ class NotificationRepoImp implements NotificationRepo {
     } on DioException catch (dioError) {
       final status = dioError.response?.statusCode;
       final msg = dioError.response?.data is Map<String, dynamic>
-          ? dioError.response?.data['message']?.toString() ?? 'Unknown Dio error'
+          ? dioError.response?.data['message']?.toString() ??
+              'Unknown Dio error'
           : dioError.message ?? 'Unhandled Dio error';
       AppLogger.error(dioError, stackTrace: dioError.stackTrace);
       return Left('[$status] $msg');
@@ -169,7 +172,9 @@ class NotificationRepoImp implements NotificationRepo {
             .map((entry) => {entry.key: entry.value})
             .toList();
       } else {
-        throw const AppException(message: 'Unexpected response format: Expected a Map<String, bool>');
+        throw const AppException(
+            message:
+                'Unexpected response format: Expected a Map<String, bool>');
       }
     } on AppException {
       rethrow;
@@ -179,7 +184,7 @@ class NotificationRepoImp implements NotificationRepo {
     }
   }
 
-  final baseUrl = 'https://api.trackongps.com/api2/notifications';
+  final baseUrl = '${ApiConstant.baseUrl}/notifications';
 }
 
 const getDevicesEndPoint = 'api/devices';

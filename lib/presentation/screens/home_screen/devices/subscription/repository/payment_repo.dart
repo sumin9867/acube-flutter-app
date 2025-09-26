@@ -59,7 +59,9 @@ class PaymentRepo implements IPaymentRepo {
       );
 
       if (_isSuccess(response.statusCode)) {
-        return (response.data as List).map((e) => SubscriptionModel.fromJson(e)).toList();
+        return (response.data as List)
+            .map((e) => SubscriptionModel.fromJson(e))
+            .toList();
       }
       throw Exception('Failed with status: ${response.statusCode}');
     } catch (e) {
@@ -116,14 +118,16 @@ class PaymentRepo implements IPaymentRepo {
     } catch (e) {
       if (e is DioException) {
         _handleDioError(e);
-        return Left(e.response?.data?['message'] ?? 'Error initiating Khalti payment');
+        return Left(
+            e.response?.data?['message'] ?? 'Error initiating Khalti payment');
       }
       return Left('Error initiating Khalti payment: $e');
     }
   }
 
   @override
-  Future<Either<String, PaymentResponse>> paymentVerification(String pidx) async {
+  Future<Either<String, PaymentResponse>> paymentVerification(
+      String pidx) async {
     try {
       final response = await _dio.post(
         '$_baseUrl/khalti/verify',
@@ -171,7 +175,9 @@ class PaymentRepo implements IPaymentRepo {
       if (e is DioException) {
         _handleDioError(e);
         final errorMap = e.response?.data?['message'];
-        if (errorMap is Map && errorMap['message'] is List && errorMap['message'].isNotEmpty) {
+        if (errorMap is Map &&
+            errorMap['message'] is List &&
+            errorMap['message'].isNotEmpty) {
           return Left(errorMap['message'][0]);
         } else if (errorMap is String) {
           return Left(errorMap);
@@ -212,7 +218,8 @@ class PaymentRepo implements IPaymentRepo {
       };
 
       final encodedBody = body.entries
-          .map((entry) => '${Uri.encodeComponent(entry.key)}=${Uri.encodeComponent(entry.value)}')
+          .map((entry) =>
+              '${Uri.encodeComponent(entry.key)}=${Uri.encodeComponent(entry.value)}')
           .join('&');
 
       final response = await http.post(
@@ -230,7 +237,8 @@ class PaymentRepo implements IPaymentRepo {
   }
 
   @override
-  Future<Either<String, PaymentResponse>> esewapaymentVerification(String token) async {
+  Future<Either<String, PaymentResponse>> esewapaymentVerification(
+      String token) async {
     try {
       final response = await _dio.post(
         '$_baseUrl/esewa/verify',
@@ -250,7 +258,8 @@ class PaymentRepo implements IPaymentRepo {
   }
 
   @override
-  Future<Either<String, List<PaymentHistoryModel>>> getPaymentHistory(String page, String limit) async {
+  Future<Either<String, List<PaymentHistoryModel>>> getPaymentHistory(
+      String page, String limit) async {
     try {
       final response = await _dio.get(
         '$_baseUrl/manage/prev?page=$page&limit=$limit',
@@ -268,10 +277,11 @@ class PaymentRepo implements IPaymentRepo {
   }
 
   @override
-  Future<Either<String, List<PaymentHistoryModel>>> getPaymentHistoryDevice(String deviceId) async {
+  Future<Either<String, List<PaymentHistoryModel>>> getPaymentHistoryDevice(
+      String deviceId) async {
     try {
       final response = await _dio.get(
-        'https://api.trackongps.com/api2/payment/history?status=completed&deviceId=$deviceId&limit=20',
+        '${ApiConstant.baseUrl}/payment/history?status=completed&deviceId=$deviceId&limit=20',
       );
 
       if (_isSuccess(response.statusCode)) {
@@ -286,7 +296,8 @@ class PaymentRepo implements IPaymentRepo {
   }
 
   @override
-  Future<Either<String, PaymentHistoryDetails>> getPaymentHistoryDetails(String paymentId) async {
+  Future<Either<String, PaymentHistoryDetails>> getPaymentHistoryDetails(
+      String paymentId) async {
     try {
       final response = await _dio.get(
         '$_baseUrl/manage/prev/$paymentId',

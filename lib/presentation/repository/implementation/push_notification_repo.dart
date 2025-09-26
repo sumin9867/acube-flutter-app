@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:gpspro/core/app_logger.dart';
+import 'package:gpspro/core/constants/api_constant.dart';
 import 'package:gpspro/core/exceptions/app_exceptions.dart';
 import 'package:gpspro/domain/models/user_model.dart';
 import 'package:gpspro/domain/models/user_session.dart';
@@ -12,10 +13,11 @@ class PushNotificationRepo implements IPushNotificationRepo {
 
   PushNotificationRepo({Dio? dio}) : _dio = dio ?? Dio();
 
-  final baseUrl = 'https://api.trackongps.com/api2/notifications';
+  final baseUrl = '${ApiConstant.baseUrl}/notifications';
 
   @override
-  Future<bool> saveFcmToken(User user, UserSession session, String token) async {
+  Future<bool> saveFcmToken(
+      User user, UserSession session, String token) async {
     try {
       final cookie = session.cookie;
 
@@ -50,7 +52,9 @@ class PushNotificationRepo implements IPushNotificationRepo {
       } else if (response.statusCode == 302) {
         throw const AppException(message: 'Token already exists');
       } else {
-        throw AppException(message: 'Failed to save token. Status code: ${response.statusCode}');
+        throw AppException(
+            message:
+                'Failed to save token. Status code: ${response.statusCode}');
       }
     } on AppException {
       rethrow;
@@ -61,7 +65,8 @@ class PushNotificationRepo implements IPushNotificationRepo {
   }
 
   @override
-  Future<bool> removeFcmToken(User user, UserSession session, String token) async {
+  Future<bool> removeFcmToken(
+      User user, UserSession session, String token) async {
     try {
       final cookie = session.cookie;
 
@@ -96,7 +101,9 @@ class PushNotificationRepo implements IPushNotificationRepo {
       } else if (response.statusCode == 404) {
         throw const AppException(message: 'Token already exists');
       } else {
-        throw AppException(message: 'Failed to remove token. Status code: ${response.statusCode}');
+        throw AppException(
+            message:
+                'Failed to remove token. Status code: ${response.statusCode}');
       }
     } on AppException {
       rethrow;

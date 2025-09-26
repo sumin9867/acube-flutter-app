@@ -39,10 +39,11 @@ class _AntiTheftAlertDialogState extends State<AntiTheftAlertDialog> {
     });
   }
 
-  playAlertSound() async {
+  Future<void> playAlertSound() async {
     try {
-      final bytes =
-          await (await audioCache.loadAsFile(Assets.mp3.beepWarning.replaceFirst('assets/', ''))).readAsBytes();
+      final bytes = await (await audioCache
+              .loadAsFile(Assets.mp3.beepWarning.replaceFirst('assets/', '')))
+          .readAsBytes();
       advancedPlayer.setReleaseMode(ReleaseMode.loop);
       advancedPlayer.play(
         BytesSource(bytes),
@@ -81,7 +82,7 @@ class _AntiTheftAlertDialogState extends State<AntiTheftAlertDialog> {
           _stopAlertAndExitDialog();
           try {
             final result = await LaunchApp.openApp(
-              androidPackageName: 'com.itsoch.trackon',
+              androidPackageName: 'com.acube.gps',
               iosUrlScheme: 'pulsesecure://',
               openStore: false,
             );
@@ -104,7 +105,8 @@ class _AntiTheftAlertDialogState extends State<AntiTheftAlertDialog> {
           elevation: 12,
           shadowColor: Colors.black,
           title: const Text('Anti-theft Alert!'),
-          content: Text('The device named $deviceName\nhas detected some suspicious activities of theft.'),
+          content: Text(
+              'The device named $deviceName\nhas detected some suspicious activities of theft.'),
           actions: [
             Wrap(
               spacing: 12,

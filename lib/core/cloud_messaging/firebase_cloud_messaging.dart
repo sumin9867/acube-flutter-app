@@ -13,6 +13,7 @@ import 'package:gpspro/auth/cubit/auth_cubit.dart';
 import 'package:gpspro/core/app_logger.dart';
 import 'package:gpspro/core/app_permission.dart';
 import 'package:gpspro/core/cloud_messaging/local_notification_service.dart';
+import 'package:gpspro/core/constants/api_keys.dart';
 import 'package:gpspro/core/di/get_injectable.dart';
 import 'package:gpspro/data/sources/local_source.dart';
 import 'package:gpspro/data/sources/sources_impl/local_source_impl.dart';
@@ -33,10 +34,10 @@ class CloudMessaging {
     try {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-          apiKey: 'AIzaSyCxycdtFmkmDfmLrf895tMKdqGGtOBvPrk',
-          appId: '1:303684458367:android:1e2198ab2370acd3b8ac4a',
-          messagingSenderId: '303684458367',
-          projectId: 'trackon-32270',
+          apiKey: ApiKeys.firebaseApiKeyAndroid,
+          appId: ApiKeys.firebaseAppIdAndroid,
+          messagingSenderId: ApiKeys.firebaseMessagingSenderIdAndroid,
+          projectId: ApiKeys.firebaseProjectIdAndroid,
         ),
       );
       _fcm = FirebaseMessaging.instance;
@@ -62,11 +63,14 @@ class CloudMessaging {
       locator
           .get<LocalNotificationService>()
           .flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()!
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()!
           .requestNotificationsPermission();
     } else if (Platform.isIOS) {
-      final NotificationSettings settings = await _fcm.requestPermission(provisional: true);
-      AppLogger.info('CM user grant permission ==> ${settings.authorizationStatus}');
+      final NotificationSettings settings =
+          await _fcm.requestPermission(provisional: true);
+      AppLogger.info(
+          'CM user grant permission ==> ${settings.authorizationStatus}');
     }
   }
 
@@ -111,7 +115,8 @@ class CloudMessaging {
         final RemoteNotification notification = message.notification!;
         final isInstant = message.data['is_instant'];
         final bool isInstantNotification = isInstant == 'true';
-        final String? devicename = message.notification?.body?.split('ignition')[0];
+        final String? devicename =
+            message.notification?.body?.split('ignition')[0];
         log('---$devicename---');
       }
     });
@@ -126,11 +131,14 @@ void _handleMessage(RemoteMessage message) async {
   try {
     if (!locator.get<AuthCubit>().isAuthenticated) return;
     if (message.notification != null) {
-      AppLogger.info('Notification ==> title: ${message.notification?.title}  body: ${message.notification?.body}');
+      AppLogger.info(
+          'Notification ==> title: ${message.notification?.title}  body: ${message.notification?.body}');
       final RemoteNotification notification = message.notification!;
       if (notification.body?.toLowerCase().contains('ignition on') ?? false) {
-        final String devicename = notification.body!.split('ignition')[0].trim();
-        final isAntiTheftEnabled = locator.get<LocalSource>().getBool(devicename);
+        final String devicename =
+            notification.body!.split('ignition')[0].trim();
+        final isAntiTheftEnabled =
+            locator.get<LocalSource>().getBool(devicename);
         AppLogger.debug('Anti-theft enabled ===> $isAntiTheftEnabled');
         if (isAntiTheftEnabled ?? true) {
           AppPermissions.checkSystemAlertPermission();
@@ -169,23 +177,26 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   try {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: 'AIzaSyCxycdtFmkmDfmLrf895tMKdqGGtOBvPrk',
-        appId: '1:303684458367:android:1e2198ab2370acd3b8ac4a',
-        messagingSenderId: '303684458367',
-        projectId: 'trackon-32270',
+        apiKey: ApiKeys.firebaseApiKeyAndroid,
+        appId: ApiKeys.firebaseAppIdAndroid,
+        messagingSenderId: ApiKeys.firebaseMessagingSenderIdAndroid,
+        projectId: ApiKeys.firebaseProjectIdAndroid,
       ),
     );
+
     try {
       if (message.notification != null) {
         await LaunchApp.openApp(
-          androidPackageName: 'com.itsoch.trackon',
+          androidPackageName: 'com.acube.gps',
           iosUrlScheme: 'pulsesecure://',
           openStore: false,
         );
-        AppLogger.info('Notification ==> title: ${message.notification?.title}  body: ${message.notification?.body}');
+        AppLogger.info(
+            'Notification ==> title: ${message.notification?.title}  body: ${message.notification?.body}');
         final RemoteNotification notification = message.notification!;
         if (notification.body?.toLowerCase().contains('ignition on') ?? false) {
-          final String devicename = notification.body!.split('ignition')[0].trim();
+          final String devicename =
+              notification.body!.split('ignition')[0].trim();
           final isAntiTheftEnabled = LocalSourceImpl(
             sharedPref: await SharedPreferences.getInstance(),
           ).getBool(devicename);

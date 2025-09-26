@@ -76,7 +76,8 @@ class _SigninScreenState extends State<SigninScreen> {
                   resizeToAvoidBottomInset: false,
                   body: SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, top: 20),
                       child: HeaderFooterWrapper(
                         header: const Align(
                           alignment: Alignment.topLeft,
@@ -125,7 +126,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                     controller: usernameController,
                                     label: context.locale.mobileOrEmail,
                                     hintText: context.locale.mobileOrEmail,
-                                    validator: FormValidator.loginUserNameEmailValidation,
+                                    validator: FormValidator
+                                        .loginUserNameEmailValidation,
                                     keyboardType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.next,
                                   ),
@@ -143,12 +145,15 @@ class _SigninScreenState extends State<SigninScreen> {
                                     },
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                        _isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
                                         color: AppColors.primaryColor,
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          _isPasswordVisible = !_isPasswordVisible;
+                                          _isPasswordVisible =
+                                              !_isPasswordVisible;
                                         });
                                       },
                                     ),
@@ -158,7 +163,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                     alignment: Alignment.centerRight,
                                     child: InkWell(
                                       onTap: () {
-                                        context.push(RouteConstant.forgotPassword);
+                                        context
+                                            .push(RouteConstant.forgotPassword);
                                       },
                                       child: Text(
                                         context.locale.forgotPassword,
@@ -182,7 +188,8 @@ class _SigninScreenState extends State<SigninScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Checkbox(
-                                  activeColor: const Color.fromRGBO(8, 128, 234, 1),
+                                  activeColor:
+                                      const Color.fromRGBO(8, 128, 234, 1),
                                   value: _isChecked,
                                   onChanged: (bool? newValue) {
                                     setState(() {
@@ -193,7 +200,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                 Expanded(
                                   child: Builder(
                                     builder: (context) {
-                                      final screenWidth = MediaQuery.of(context).size.width;
+                                      final screenWidth =
+                                          MediaQuery.of(context).size.width;
 
                                       // ✅ Adjust font size based on screen width
                                       double fontSize;
@@ -215,7 +223,8 @@ class _SigninScreenState extends State<SigninScreen> {
 
                                       return Wrap(
                                         alignment: WrapAlignment.start,
-                                        crossAxisAlignment: WrapCrossAlignment.center,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.center,
                                         children: [
                                           Text(
                                             'Yes, I agreed to the ',
@@ -233,7 +242,10 @@ class _SigninScreenState extends State<SigninScreen> {
                                               RouteHelper.pushWebViewPage(
                                                 WebViewRouteParams(
                                                   'Terms and Conditions',
-                                                  locator.get<AppConfig>().configModel.termsAndConditionUrl,
+                                                  locator
+                                                      .get<AppConfig>()
+                                                      .configModel
+                                                      .termsAndConditionUrl,
                                                 ),
                                               );
                                             },
@@ -243,7 +255,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                                 fontFamily: 'SF Pro',
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: fontSize,
-                                                color: const Color.fromRGBO(8, 128, 234, 1),
+                                                color: const Color.fromRGBO(
+                                                    8, 128, 234, 1),
                                                 height: lineHeight,
                                               ),
                                             ),
@@ -272,21 +285,27 @@ class _SigninScreenState extends State<SigninScreen> {
                                             }
                                           : null, // <-- disables button when unchecked
                                       style: ButtonStyle(
-                                        backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                                        backgroundColor: WidgetStateProperty
+                                            .resolveWith<Color>(
                                           (states) {
-                                            if (states.contains(WidgetState.disabled)) {
-                                              return Colors.grey.shade400; // disabled color
+                                            if (states.contains(
+                                                WidgetState.disabled)) {
+                                              return Colors.grey
+                                                  .shade400; // disabled color
                                             }
-                                            return const Color.fromRGBO(8, 128, 234, 1); // enabled color
+                                            return const Color.fromRGBO(8, 128,
+                                                234, 1); // enabled color
                                           },
                                         ),
                                         elevation: WidgetStateProperty.all(1),
                                         padding: WidgetStateProperty.all(
-                                          const EdgeInsets.symmetric(horizontal: 18),
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 18),
                                         ),
                                         shape: WidgetStateProperty.all(
                                           RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
                                             side: const BorderSide(
                                               color: Colors.white24,
                                               width: 2,
@@ -294,10 +313,15 @@ class _SigninScreenState extends State<SigninScreen> {
                                           ),
                                         ),
                                         shadowColor: WidgetStateProperty.all(
-                                          const Color.fromRGBO(10, 13, 18, 0.05),
+                                          const Color.fromRGBO(
+                                              10, 13, 18, 0.05),
                                         ),
-                                        overlayColor: WidgetStateProperty.resolveWith<Color?>(
-                                          (states) => states.contains(WidgetState.pressed) ? Colors.white10 : null,
+                                        overlayColor: WidgetStateProperty
+                                            .resolveWith<Color?>(
+                                          (states) => states
+                                                  .contains(WidgetState.pressed)
+                                              ? Colors.white10
+                                              : null,
                                         ),
                                       ),
                                       child: Text(
@@ -326,7 +350,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                     children: [
                                       TextSpan(
                                         text: ' ',
-                                        style: context.textTheme.bodyMedium?.copyWith(
+                                        style: context.textTheme.bodyMedium
+                                            ?.copyWith(
                                           fontFamily: 'SF Pro',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
@@ -336,7 +361,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                       ),
                                       TextSpan(
                                         text: context.locale.register,
-                                        style: context.textTheme.bodyMedium?.copyWith(
+                                        style: context.textTheme.bodyMedium
+                                            ?.copyWith(
                                           fontFamily: 'SF Pro',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
@@ -371,7 +397,8 @@ class _SigninScreenState extends State<SigninScreen> {
 
   Future<void> _handleNavigationOnLogin(BuildContext context) async {
     try {
-      final hasSeenNotificationScreen = await prefsHelper.hasSeenNotificationScreen();
+      final hasSeenNotificationScreen =
+          await prefsHelper.hasSeenNotificationScreen();
 
       if (!hasSeenNotificationScreen) {
         context.go(RouteConstant.selectNotification);
@@ -398,40 +425,43 @@ class AppVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
+    return Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            context.locale.version,
-            style: context.textTheme.labelLarge?.copyWith(
-              color: context.colorScheme.primary,
-            ),
-          ),
-          const SizedBox(width: 5),
-          FutureBuilder(
-            initialData: PackageInfo(
-              appName: 'Unknown',
-              packageName: 'Unknown',
-              version: 'N/A',
-              buildNumber: 'N/A',
-              buildSignature: 'Unknown',
-            ),
-            future: PackageInfo.fromPlatform(),
-            builder: (context, ss) {
-              final PackageInfo packageInfo = ss.data!;
-              return Text(
-                '${packageInfo.version}+${packageInfo.buildNumber}',
-                style: context.textTheme.labelMedium?.copyWith(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                context.locale.version,
+                style: context.textTheme.labelLarge?.copyWith(
                   color: context.colorScheme.primary,
                 ),
-              );
-            },
+              ),
+              const SizedBox(width: 5),
+              FutureBuilder(
+                initialData: PackageInfo(
+                  appName: 'Unknown',
+                  packageName: 'Unknown',
+                  version: 'N/A',
+                  buildNumber: 'N/A',
+                  buildSignature: 'Unknown',
+                ),
+                future: PackageInfo.fromPlatform(),
+                builder: (context, ss) {
+                  final PackageInfo packageInfo = ss.data!;
+                  return Text(
+                    '${packageInfo.version}+${packageInfo.buildNumber}',
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: context.colorScheme.primary,
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-    ]);
+        ]);
   }
 }
 
@@ -441,8 +471,8 @@ class TrackonNewLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/icons/logo_trackon.png',
-      height: MediaQuery.of(context).size.height * 0.028,
+      'assets/icons/logo/vithimap-nobackground.png',
+      height: MediaQuery.of(context).size.height * 0.048,
     );
   }
 }

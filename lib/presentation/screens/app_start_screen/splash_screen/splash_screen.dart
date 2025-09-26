@@ -81,7 +81,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.images.trackonSlogan.image(height: size.height * 0.11),
+            Image.asset(
+              'assets/icons/logo/vithimap-nobackground.png',
+              height: size.height * 0.13,
+            ),
             const SizedBox(height: 20),
             SizedBox(
               width: size.width / 2,

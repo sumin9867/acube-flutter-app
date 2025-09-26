@@ -78,7 +78,8 @@ class CustomerServiceLandingScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final Uri phoneUri = Uri(scheme: 'tel', path: '+977 9707051010');
+                    final Uri phoneUri =
+                        Uri(scheme: 'tel', path: '+977 9707051010');
                     if (await canLaunchUrl(phoneUri)) {
                       await launchUrl(phoneUri);
                     } else {
@@ -90,7 +91,8 @@ class CustomerServiceLandingScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 12),
                     elevation: 4,
                   ),
                   child: Row(
@@ -171,15 +173,15 @@ class CustomerServiceLandingScreen extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Support tiles
-                  _buildSupportTile(
-                    context,
-                    icon: 'live_care',
-                    title: context.locale.liveSupport,
-                    subtitle: context.locale.liveSupportSubtitle,
-                    onTap: () => RouteHelper.pushCustomerCarePage(
-                      const CustomerCareParams(isLoggedIn: true),
-                    ),
-                  ),
+                  // _buildSupportTile(
+                  //   context,
+                  //   icon: 'live_care',
+                  //   title: context.locale.liveSupport,
+                  //   subtitle: context.locale.liveSupportSubtitle,
+                  //   onTap: () => RouteHelper.pushCustomerCarePage(
+                  //     const CustomerCareParams(isLoggedIn: true),
+                  //   ),
+                  // ),
                   _buildSupportTile(
                     context,
                     icon: 'whatsapp',
@@ -187,12 +189,14 @@ class CustomerServiceLandingScreen extends StatelessWidget {
                     subtitle: context.locale.whatsappSubtitle,
                     onTap: () async {
                       const phoneNumber = '+9779820754740';
-                      final url = 'https://wa.me/${phoneNumber.replaceAll('+', '')}';
+                      final url =
+                          'https://wa.me/${phoneNumber.replaceAll('+', '')}';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Could not open WhatsApp')),
+                          const SnackBar(
+                              content: Text('Could not open WhatsApp')),
                         );
                       }
                     },
@@ -318,7 +322,8 @@ class CustomerServiceLandingScreen extends StatelessWidget {
             ),
           ),
           onTap: onTap,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
         ),
       ),
     );

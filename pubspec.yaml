@@ -129,6 +129,8 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
+
   flutter_gen_runner: ^5.3.1
   flutter_intl: any
   intl_utils: any
@@ -176,6 +178,7 @@ flutter:
     - assets/images/devices/tempo/
     - assets/images/devices/van/
     - assets/icons/
+    - assets/icons/logo/
     - assets/icons/marker/
     - assets/icons/bottom_bar/
     - assets/icons/vehicle_dashboard/
@@ -185,17 +188,8 @@ flutter:
     - assets/icons/playback/
     - assets/icons/vehicle_info/
     - assets/icons/vehicle_setting/
-   
     - assets/icons/statistics/
-    - assets/icons/trackon_new_logo_12.png
-    - assets/icons/trackonsplash.png
-    - assets/icons/trackon_new_logo_12.png
-    - assets/icons/trackon_new_logo.png
-    - assets/icons/trackonsplash_12.png
     - assets/images/devices/rmc/
-
-
-
     - assets/icons/control_center/
     - assets/icons/subscription/
     - assets/icons/payment/
@@ -238,7 +232,7 @@ flutter_intl:
 flutter_native_splash:
   color: "#FFFFFF"
   color_dark: "#FFFFFF"
-  image: assets/icons/trackonsplash.png
+  image: assets/icons/logo/vithimap splash screen_mobile.png
   ios_content_mode: scaleAspectFit
 
   android: true
@@ -249,4 +243,10 @@ flutter_native_splash:
   android_12:
     color: "#FFFFFF"
     color_dark: "#FFFFFF"
-    image: assets/icons/trackon_new_logo_12.png
+    image: assets/icons/logo/acube_12.png
+ 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/logo/logo_acube.png"
+  remove_alpha_ios: true
