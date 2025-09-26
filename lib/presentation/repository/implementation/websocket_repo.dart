@@ -24,7 +24,7 @@ class WebSocketRepoImp implements WebSocketRepo {
       }
       final cookie = userSession.cookie;
       final channel = IOWebSocketChannel.connect(
-        Uri.parse('wss://itsochvts.com/api/socket'),
+        Uri.parse('ws://159.65.159.79:8082/api/socket'),
         headers: <String, String>{
           'Cookie': cookie ?? '',
         },

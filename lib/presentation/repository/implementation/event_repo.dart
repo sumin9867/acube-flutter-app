@@ -29,7 +29,7 @@ class EventRepoImp implements EventRepo {
       log('Fetch from $from to $to for types: $types and deviceIds: $deviceIds');
       final uri = Uri(
         scheme: 'https',
-        host: 'api.trackongps.com',
+        host: 'api.acubegps.com',
         path: '/api2/events',
         queryParameters: {
           'from': from,
